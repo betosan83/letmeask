@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import logoImg from '../assets/images/logo.svg';
@@ -57,13 +57,15 @@ export function Room() {
                     <span>4 perguntas</span>
                 </div>
 
-                <form action="">
-                    <textarea placeholder="Faça sua pergunta">
+                <form onSubmit={handleSendQuestion}>
+                    <textarea placeholder="Faça sua pergunta"
+                    onChange={event => setNewQuestion(event.target.value)}
+                    value={newQuestion}>
                         
                     </textarea>
-                    <div>
+                    <div className="form-footer">
                         <span>Para enviar uma pergunta, <button>faça seu login</button></span>
-                        <Button type="submit">Enviar pergunta</Button>
+                        <Button type="submit" disabled={!user}>Enviar pergunta</Button>
                     </div>
                 </form>
             </main>
