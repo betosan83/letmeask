@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import logoImg from '../assets/images/logo.svg';
 import { Button } from '../components/Button';
+import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
@@ -119,8 +120,15 @@ export function Room() {
                         <Button type="submit" disabled={!user}>Enviar pergunta</Button>
                     </div>
                 </form>
-
-                {JSON.stringify(questions)}
+                {/* Iterates through all the questions creating an Question component for each one */}                
+                {questions.map(question => {
+                    return (
+                        <Question
+                            content={question.content}
+                            author={question.author}
+                        />
+                    )
+                })}
             </main>
         </div>
     )
