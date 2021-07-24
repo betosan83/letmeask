@@ -22,7 +22,7 @@ type FirebaseQuestions = Record<string, {
 type RoomParams = {
     id: string;
 }
-type Question = {
+type QuestionType = {
     id: string;
     author: {
         name: string;
@@ -38,7 +38,7 @@ export function Room() {
     const params = useParams<RoomParams>();
     const [newQuestion, setNewQuestion] = useState('');
     const roomId = params.id;
-    const [questions, setQuestions] = useState<Question[]>([])
+    const [questions, setQuestions] = useState<QuestionType[]>([])
     const [title, setTitle] = useState('');
 
     useEffect(() => {
@@ -121,14 +121,18 @@ export function Room() {
                     </div>
                 </form>
                 {/* Iterates through all the questions creating an Question component for each one */}                
+                <div className="question-list">
                 {questions.map(question => {
                     return (
                         <Question
+                            key={question.content}
                             content={question.content}
                             author={question.author}
                         />
                     )
                 })}
+
+                </div>
             </main>
         </div>
     )
